@@ -1,4 +1,4 @@
-// Draws your GitHub contribution grid as an SVG, themed for oxocarbon.
+// Draws your GitHub contribution grid as an SVG, themed for catppuccin mocha.
 // Writes assets/contributions.svg, which the README embeds.
 //
 // Data source, in priority order:
@@ -17,24 +17,26 @@ import path from "node:path";
 // CHANGE THIS to your GitHub username. Nothing else needs editing.
 const USERNAME = "luidevo";
 const TIMEZONE = "America/Toronto";
-const THEME_NAME = "oxocarbon"; // "oxocarbon" | "phosphor" | "amber"
+const THEME_NAME = "mocha"; // "mocha" | "phosphor" | "amber"
 
 // ── themes ───────────────────────────────────────────────────────────────────
 // empty  = the "no activity" cell (kept neutral so it reads on light and dark).
-// active = five stops, level 1..5. oxocarbon uses its signature accent gradient
-//          (teal -> cyan -> blue -> purple -> magenta) so intensity is read by
-//          hue. phosphor/amber use one hue ramped by opacity instead.
+// active = five stops, level 1..5. mocha walks the catppuccin accents in one
+//          direction around the hue wheel, cool -> warm (sapphire -> teal ->
+//          green -> yellow -> peach), so intensity reads as heat and no stop
+//          doubles back. Opacity climbs with it so the ramp is monotone even
+//          in greyscale. phosphor/amber use one hue ramped by opacity instead.
 const THEMES = {
-  oxocarbon: {
-    empty: { fill: "#525252", opacity: 0.20 },
+  mocha: {
+    empty: { fill: "#313244", opacity: 0.55 }, // surface0
     active: [
-      { fill: "#08bdba", opacity: 0.85 }, // teal
-      { fill: "#3ddbd9", opacity: 0.90 }, // cyan
-      { fill: "#33b1ff", opacity: 0.95 }, // blue
-      { fill: "#be95ff", opacity: 1.0 },  // purple
-      { fill: "#ee5396", opacity: 1.0 },  // magenta
+      { fill: "#74c7ec", opacity: 0.80 }, // sapphire
+      { fill: "#94e2d5", opacity: 0.85 }, // teal
+      { fill: "#a6e3a1", opacity: 0.90 }, // green
+      { fill: "#f9e2af", opacity: 0.95 }, // yellow
+      { fill: "#fab387", opacity: 1.0 },  // peach
     ],
-    text: "#8b949e",
+    text: "#a6adc8", // subtext0
     glow: false,
   },
   phosphor: {
