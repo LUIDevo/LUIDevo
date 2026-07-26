@@ -1,4 +1,4 @@
-// Draws your GitHub contribution grid as an SVG, themed for catppuccin mocha.
+// Draws your GitHub contribution grid as an SVG, themed as a blue ramp.
 // Writes assets/contributions.svg, which the README embeds.
 //
 // Data source, in priority order:
@@ -17,26 +17,27 @@ import path from "node:path";
 // CHANGE THIS to your GitHub username. Nothing else needs editing.
 const USERNAME = "luidevo";
 const TIMEZONE = "America/Toronto";
-const THEME_NAME = "mocha"; // "mocha" | "phosphor" | "amber"
+const THEME_NAME = "blue"; // "blue" | "phosphor" | "amber"
 
 // ── themes ───────────────────────────────────────────────────────────────────
 // empty  = the "no activity" cell (kept neutral so it reads on light and dark).
-// active = five stops, level 1..5. mocha walks the catppuccin accents in one
-//          direction around the hue wheel, cool -> warm (sapphire -> teal ->
-//          green -> yellow -> peach), so intensity reads as heat and no stop
-//          doubles back. Opacity climbs with it so the ramp is monotone even
-//          in greyscale. phosphor/amber use one hue ramped by opacity instead.
+// active = five stops, level 1..5. blue is a single-hue ramp: deep navy up to
+//          pale ice, hue drifting only slightly toward cyan as it brightens.
+//          Lightness does all the work, so relative luminance climbs hard and
+//          evenly (~40 -> 74 -> 116 -> 156 -> 203) and each level is obvious
+//          next to its neighbours. Opacity stays 1 so nothing washes out.
+//          phosphor/amber use one hue ramped by opacity instead.
 const THEMES = {
-  mocha: {
-    empty: { fill: "#313244", opacity: 0.55 }, // surface0
+  blue: {
+    empty: { fill: "#191d27", opacity: 1.0 },
     active: [
-      { fill: "#74c7ec", opacity: 0.80 }, // sapphire
-      { fill: "#94e2d5", opacity: 0.85 }, // teal
-      { fill: "#a6e3a1", opacity: 0.90 }, // green
-      { fill: "#f9e2af", opacity: 0.95 }, // yellow
-      { fill: "#fab387", opacity: 1.0 },  // peach
+      { fill: "#25497a", opacity: 1.0 }, // navy
+      { fill: "#2c5d94", opacity: 1.0 },
+      { fill: "#3d86c6", opacity: 1.0 },
+      { fill: "#6cb2e8", opacity: 1.0 },
+      { fill: "#b3ddfa", opacity: 1.0 }, // ice
     ],
-    text: "#a6adc8", // subtext0
+    text: "#9fb3c8",
     glow: false,
   },
   phosphor: {
