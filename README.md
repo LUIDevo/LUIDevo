@@ -18,5 +18,5 @@ ml · research · fullstack
 
 `links:` &nbsp; \
 [portfolio website](https://luidevo.github.io/portfolio) \
-[linkedin](https://www.linkedin.com/in/louis-berenyi-6089a931b/)
+[linkedin](https://www.linkedin.com/in/louis-berenyi-6089a931b/) \
 email: louisbusiness6712@gmail.com
