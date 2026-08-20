@@ -1,4 +1,5 @@
-// Draws your GitHub contribution grid as an SVG, themed as a blue CRT terminal.
+// Draws your GitHub contribution grid as an SVG, themed as a blue CRT terminal
+// that sits on GitHub's own background rather than on a panel of its own.
 // Writes assets/contributions.svg, which the README embeds.
 //
 // Data source, in priority order:
@@ -24,8 +25,11 @@ const THEME_NAME = "terminal"; // "terminal" | "blue" | "phosphor" | "amber"
 //          (emptyStyle "square", the default) or as a small centred dot
 //          (emptyStyle "dot"), which is what gives the terminal look its
 //          sparse, punch-card feel instead of a solid slab of dark cells.
-// bg     = optional panel behind the whole graph. Themes that set one own
-//          their contrast, so they don't have to read on a light background.
+// bg     = optional panel behind the whole graph, as {fill, opacity}. Keep the
+//          opacity low: a translucent tint blends into whatever GitHub theme is
+//          behind it, where an opaque panel would slab out on the other one.
+//          Every other colour must then read on both #ffffff and #0d1117, which
+//          rules out both very dark and near-white stops.
 // rx     = per-theme corner radius; the CRT theme wants near-square pixels.
 // active = five stops, level 1..5. blue is a single-hue ramp: deep navy up to
 //          pale ice, hue drifting only slightly toward cyan as it brightens.
@@ -38,18 +42,18 @@ const THEMES = {
   // navy -> ice ramp as the flat `blue` theme, so levels separate by lightness
   // alone; the panel and bloom are what make it read as a screen.
   terminal: {
-    bg: "#050810",
+    bg: { fill: "#4d8ac0", opacity: 0.06 },
     rx: 1.5,
     emptyStyle: "dot",
-    empty: { fill: "#1e3654", opacity: 1.0 },
+    empty: { fill: "#5c8cbb", opacity: 0.45 },
     active: [
-      { fill: "#25497a", opacity: 1.0 }, // navy
-      { fill: "#2c5d94", opacity: 1.0 },
-      { fill: "#3d86c6", opacity: 1.0 },
-      { fill: "#6cb2e8", opacity: 1.0 },
-      { fill: "#b3ddfa", opacity: 1.0 }, // ice
+      { fill: "#1d4a7a", opacity: 1.0 }, // deep navy
+      { fill: "#2668a8", opacity: 1.0 },
+      { fill: "#3387d1", opacity: 1.0 },
+      { fill: "#4da2e8", opacity: 1.0 },
+      { fill: "#6fbcf7", opacity: 1.0 }, // bright, stops short of white
     ],
-    text: "#6fa6d8",
+    text: "#5f92c4",
     glow: true,
     glowBlur: 1.1,
   },
@@ -239,7 +243,8 @@ function render({ weeks, total }) {
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>` : "";
   const bg = THEME.bg
-    ? `\n  <rect width="${W}" height="${H}" rx="6" fill="${THEME.bg}"/>`
+    ? `\n  <rect width="${W}" height="${H}" rx="6" fill="${THEME.bg.fill}" `
+      + `fill-opacity="${THEME.bg.opacity}"/>`
     : "";
 
   return `<?xml version="1.0" encoding="UTF-8"?>
