@@ -1,4 +1,4 @@
-// Draws your GitHub contribution grid as an SVG, themed as a blue CRT terminal
+// Draws your GitHub contribution grid as an SVG, themed as a red CRT terminal
 // that sits on GitHub's own background rather than on a panel of its own.
 // Writes assets/contributions.svg, which the README embeds.
 //
@@ -38,22 +38,23 @@ const THEME_NAME = "terminal"; // "terminal" | "blue" | "phosphor" | "amber"
 //          next to its neighbours. Opacity stays 1 so nothing washes out.
 //          phosphor/amber use one hue ramped by opacity instead.
 const THEMES = {
-  // Blue CRT: near-black panel, blue pixels, empties as faint dots. Same
-  // navy -> ice ramp as the flat `blue` theme, so levels separate by lightness
-  // alone; the panel and bloom are what make it read as a screen.
+  // Red CRT: no panel at all, so the pixels sit straight on GitHub's own
+  // background in either theme — a tinted panel reads as a floating slab in
+  // the README. Every stop is luminance-matched to the blue ramp it replaces,
+  // which is what keeps the levels separable on #ffffff and #0d1117 alike.
   terminal: {
-    bg: { fill: "#4d8ac0", opacity: 0.06 },
+    bg: null,
     rx: 1.2,
     emptyStyle: "dot",
-    empty: { fill: "#5c8cbb", opacity: 0.45 },
+    empty: { fill: "#c3707b", opacity: 0.45 },
     active: [
-      { fill: "#1d4a7a", opacity: 1.0 }, // deep navy
-      { fill: "#2668a8", opacity: 1.0 },
-      { fill: "#3387d1", opacity: 1.0 },
-      { fill: "#4da2e8", opacity: 1.0 },
-      { fill: "#6fbcf7", opacity: 1.0 }, // bright, stops short of white
+      { fill: "#89212e", opacity: 1.0 }, // deep crimson
+      { fill: "#bf2b3f", opacity: 1.0 },
+      { fill: "#d95769", opacity: 1.0 },
+      { fill: "#ee7887", opacity: 1.0 },
+      { fill: "#f99aa7", opacity: 1.0 }, // bright, stops short of white
     ],
-    text: "#5f92c4",
+    text: "#cc7480",
     glow: true,
     glowBlur: 1.1,
   },
