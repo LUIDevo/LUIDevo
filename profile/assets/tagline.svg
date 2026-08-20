@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Static asset. #d54458 lands at 4.39:1 on #ffffff and 4.31:1 on #0d1117,
-     so the red reads on either GitHub theme. The neutral is GitHub's own muted
-     grey, #8b949e: 5.71:1 on the dark theme this profile is usually read in,
-     3.05:1 on the light one. -->
+<!-- Static asset. The neutral text adapts to the viewer's colour scheme: light
+     grey on dark, dark grey on light. The fill="#8b949e" presentation attribute
+     is the fallback that survives if the <style> block is ever stripped, so the
+     text is never invisible. Note the query follows the OS/browser scheme, not
+     GitHub's theme picker — the two agree for anyone on the default "system"
+     setting, and the fallback covers the rest.
+     The red #d54458 is fixed: 4.39:1 on #ffffff, 4.31:1 on #0d1117. -->
 <svg width="420" height="50" viewBox="0 0 420 50" xmlns="http://www.w3.org/2000/svg"
      role="img" aria-label="2nd year cs at uOttawa, co-op stream, Toronto. ML, research, fullstack.">
+  <style>
+    .n { fill: #8b949e; }
+    @media (prefers-color-scheme: dark)  { .n { fill: #c9d1d9; } }
+    @media (prefers-color-scheme: light) { .n { fill: #57606a; } }
+  </style>
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5">
-    <text x="0" y="16" fill="#8b949e">
+    <text x="0" y="16" class="n" fill="#8b949e">
       <tspan fill="#d54458" font-weight="600">2nd year cs</tspan><tspan xml:space="preserve"> @ uottawa · co-op stream · toronto</tspan>
     </text>
-    <text x="0" y="38" fill="#8b949e">
+    <text x="0" y="38" class="n" fill="#8b949e">
       <tspan fill="#d54458" font-weight="600">ml</tspan><tspan xml:space="preserve"> · research · fullstack</tspan>
     </text>
   </g>
