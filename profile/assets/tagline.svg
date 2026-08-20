@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Static asset. Colours are dual-theme solved: #d54458 lands at 4.39:1 on
-     #ffffff and 4.31:1 on #0d1117, #717984 at 4.41 / 4.29, so both read on
-     either GitHub theme without a panel behind them. -->
+<!-- Static asset. #d54458 lands at 4.39:1 on #ffffff and 4.31:1 on #0d1117,
+     so the red reads on either GitHub theme. The neutral is GitHub's own muted
+     grey, #8b949e: 5.71:1 on the dark theme this profile is usually read in,
+     3.05:1 on the light one. -->
 <svg width="420" height="50" viewBox="0 0 420 50" xmlns="http://www.w3.org/2000/svg"
      role="img" aria-label="2nd year cs at uOttawa, co-op stream, Toronto. ML, research, fullstack.">
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13.5">
-    <text x="0" y="16" fill="#717984">
+    <text x="0" y="16" fill="#8b949e">
       <tspan fill="#d54458" font-weight="600">2nd year cs</tspan><tspan xml:space="preserve"> @ uottawa · co-op stream · toronto</tspan>
     </text>
-    <text x="0" y="38" fill="#717984">
+    <text x="0" y="38" fill="#8b949e">
       <tspan fill="#d54458" font-weight="600">ml</tspan><tspan xml:space="preserve"> · research · fullstack</tspan>
     </text>
   </g>
