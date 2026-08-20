@@ -1,4 +1,4 @@
-// Draws your GitHub contribution grid as an SVG, themed as a phosphor terminal.
+// Draws your GitHub contribution grid as an SVG, themed as a blue CRT terminal.
 // Writes assets/contributions.svg, which the README embeds.
 //
 // Data source, in priority order:
@@ -34,22 +34,22 @@ const THEME_NAME = "terminal"; // "terminal" | "blue" | "phosphor" | "amber"
 //          next to its neighbours. Opacity stays 1 so nothing washes out.
 //          phosphor/amber use one hue ramped by opacity instead.
 const THEMES = {
-  // Phosphor CRT: near-black panel, mint-green pixels, empties as faint dots.
-  // The ramp is a single mint hue climbing in lightness, so levels separate by
-  // luminance rather than by hue, and the top two stops bloom.
+  // Blue CRT: near-black panel, blue pixels, empties as faint dots. Same
+  // navy -> ice ramp as the flat `blue` theme, so levels separate by lightness
+  // alone; the panel and bloom are what make it read as a screen.
   terminal: {
-    bg: "#050d0b",
+    bg: "#050810",
     rx: 1.5,
     emptyStyle: "dot",
-    empty: { fill: "#1c4a3c", opacity: 1.0 },
+    empty: { fill: "#1e3654", opacity: 1.0 },
     active: [
-      { fill: "#1f7d5c", opacity: 1.0 }, // deep phosphor
-      { fill: "#26a074", opacity: 1.0 },
-      { fill: "#35c98f", opacity: 1.0 },
-      { fill: "#4fe6a9", opacity: 1.0 },
-      { fill: "#8ffbd0", opacity: 1.0 }, // hot
+      { fill: "#25497a", opacity: 1.0 }, // navy
+      { fill: "#2c5d94", opacity: 1.0 },
+      { fill: "#3d86c6", opacity: 1.0 },
+      { fill: "#6cb2e8", opacity: 1.0 },
+      { fill: "#b3ddfa", opacity: 1.0 }, // ice
     ],
-    text: "#3fbd8d",
+    text: "#6fa6d8",
     glow: true,
     glowBlur: 1.1,
   },
