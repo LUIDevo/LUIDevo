@@ -1,4 +1,4 @@
-// Draws your GitHub contribution grid as an SVG, themed as a blue ramp.
+// Draws your GitHub contribution grid as an SVG, themed as a phosphor terminal.
 // Writes assets/contributions.svg, which the README embeds.
 //
 // Data source, in priority order:
@@ -17,10 +17,16 @@ import path from "node:path";
 // CHANGE THIS to your GitHub username. Nothing else needs editing.
 const USERNAME = "luidevo";
 const TIMEZONE = "America/Toronto";
-const THEME_NAME = "blue"; // "blue" | "phosphor" | "amber"
+const THEME_NAME = "terminal"; // "terminal" | "blue" | "phosphor" | "amber"
 
 // ── themes ───────────────────────────────────────────────────────────────────
-// empty  = the "no activity" cell (kept neutral so it reads on light and dark).
+// empty  = the "no activity" cell. Themes may render it as a full square
+//          (emptyStyle "square", the default) or as a small centred dot
+//          (emptyStyle "dot"), which is what gives the terminal look its
+//          sparse, punch-card feel instead of a solid slab of dark cells.
+// bg     = optional panel behind the whole graph. Themes that set one own
+//          their contrast, so they don't have to read on a light background.
+// rx     = per-theme corner radius; the CRT theme wants near-square pixels.
 // active = five stops, level 1..5. blue is a single-hue ramp: deep navy up to
 //          pale ice, hue drifting only slightly toward cyan as it brightens.
 //          Lightness does all the work, so relative luminance climbs hard and
@@ -28,6 +34,25 @@ const THEME_NAME = "blue"; // "blue" | "phosphor" | "amber"
 //          next to its neighbours. Opacity stays 1 so nothing washes out.
 //          phosphor/amber use one hue ramped by opacity instead.
 const THEMES = {
+  // Phosphor CRT: near-black panel, mint-green pixels, empties as faint dots.
+  // The ramp is a single mint hue climbing in lightness, so levels separate by
+  // luminance rather than by hue, and the top two stops bloom.
+  terminal: {
+    bg: "#050d0b",
+    rx: 1.5,
+    emptyStyle: "dot",
+    empty: { fill: "#1c4a3c", opacity: 1.0 },
+    active: [
+      { fill: "#1f7d5c", opacity: 1.0 }, // deep phosphor
+      { fill: "#26a074", opacity: 1.0 },
+      { fill: "#35c98f", opacity: 1.0 },
+      { fill: "#4fe6a9", opacity: 1.0 },
+      { fill: "#8ffbd0", opacity: 1.0 }, // hot
+    ],
+    text: "#3fbd8d",
+    glow: true,
+    glowBlur: 1.1,
+  },
   blue: {
     empty: { fill: "#191d27", opacity: 1.0 },
     active: [
@@ -66,7 +91,9 @@ function levelFor(count) {
 }
 
 // ── geometry ─────────────────────────────────────────────────────────────────
-const CELL = 12, GAP = 3, RX = 2.5, WEEKS = 53, DAYS = 7, PAD = 10, LEGEND_H = 26;
+const CELL = 12, GAP = 3, WEEKS = 53, DAYS = 7, PAD = 10, LEGEND_H = 26;
+const RX = THEME.rx ?? 2.5;
+const DOT = 3; // side of the "no activity" dot, when the theme asks for one
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 function localDate(d) { return d.toLocaleDateString("en-CA", { timeZone: TIMEZONE }); }
@@ -185,7 +212,13 @@ function render({ weeks, total }) {
       const px = PAD + x * (CELL + GAP), py = PAD + y * (CELL + GAP);
       const glow = THEME.glow && level >= 4 ? ' filter="url(#glow)"' : "";
       const t = tooltip(day.date, day.count);
-      cells += `\n    <rect x="${px}" y="${py}" width="${CELL}" height="${CELL}" rx="${RX}" `
+      // Empty days shrink to a dot when the theme asks; the dot stays centred
+      // in the cell it replaces so the grid pitch never changes.
+      const dot = level === 0 && THEME.emptyStyle === "dot";
+      const w = dot ? DOT : CELL;
+      const off = dot ? (CELL - DOT) / 2 : 0;
+      const r = dot ? 0.5 : RX;
+      cells += `\n    <rect x="${px + off}" y="${py + off}" width="${w}" height="${w}" rx="${r}" `
         + `fill="${stop.fill}" fill-opacity="${stop.opacity}"${glow}>`
         + `${t ? `<title>${esc(t)}</title>` : ""}</rect>`;
     }
@@ -201,15 +234,18 @@ function render({ weeks, total }) {
       + `fill="${THEME.active[i].fill}" fill-opacity="${THEME.active[i].opacity}"/>`;
   }
   const glowDef = THEME.glow ? `
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="0.6" result="b"/>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="${THEME.glowBlur ?? 0.6}" result="b"/>
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>` : "";
+  const bg = THEME.bg
+    ? `\n  <rect width="${W}" height="${H}" rx="6" fill="${THEME.bg}"/>`
+    : "";
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"
      role="img" aria-label="GitHub contributions for ${USERNAME}">
-  <defs>${glowDef}</defs>
+  <defs>${glowDef}</defs>${bg}
   <g>${cells}
   </g>
   <text x="${PAD}" y="${textY}" ${mono} font-size="9" fill="${THEME.text}">${total.toLocaleString("en-US")} contributions · last year</text>
