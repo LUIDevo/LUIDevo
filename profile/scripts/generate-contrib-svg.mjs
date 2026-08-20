@@ -43,7 +43,7 @@ const THEMES = {
   // alone; the panel and bloom are what make it read as a screen.
   terminal: {
     bg: { fill: "#4d8ac0", opacity: 0.06 },
-    rx: 1.5,
+    rx: 1.2,
     emptyStyle: "dot",
     empty: { fill: "#5c8cbb", opacity: 0.45 },
     active: [
@@ -95,9 +95,9 @@ function levelFor(count) {
 }
 
 // ── geometry ─────────────────────────────────────────────────────────────────
-const CELL = 12, GAP = 3, WEEKS = 53, DAYS = 7, PAD = 10, LEGEND_H = 26;
+const CELL = 9, GAP = 4, WEEKS = 53, DAYS = 7, PAD = 10, LEGEND_H = 26;
 const RX = THEME.rx ?? 2.5;
-const DOT = 3; // side of the "no activity" dot, when the theme asks for one
+const DOT = 2.5; // side of the "no activity" dot, when the theme asks for one
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 function localDate(d) { return d.toLocaleDateString("en-CA", { timeZone: TIMEZONE }); }
