@@ -250,7 +250,7 @@
     <rect x="452" y="36" width="9" height="9" rx="1.2" fill="#bf2b3f" fill-opacity="1"><title>4 contributions on Jun 9</title></rect>
     <rect x="452" y="49" width="9" height="9" rx="1.2" fill="#bf2b3f" fill-opacity="1"><title>4 contributions on Jun 10</title></rect>
     <rect x="452" y="62" width="9" height="9" rx="1.2" fill="#bf2b3f" fill-opacity="1"><title>3 contributions on Jun 11</title></rect>
-    <rect x="452" y="75" width="9" height="9" rx="1.2" fill="#bf2b3f" fill-opacity="1"><title>3 contributions on Jun 12</title></rect>
+    <rect x="452" y="75" width="9" height="9" rx="1.2" fill="#89212e" fill-opacity="1"><title>2 contributions on Jun 12</title></rect>
     <rect x="455.25" y="91.25" width="2.5" height="2.5" rx="0.5" fill="#c3707b" fill-opacity="0.45"><title>0 contributions on Jun 13</title></rect>
     <rect x="465" y="10" width="9" height="9" rx="1.2" fill="#bf2b3f" fill-opacity="1"><title>5 contributions on Jun 14</title></rect>
     <rect x="468.25" y="26.25" width="2.5" height="2.5" rx="0.5" fill="#c3707b" fill-opacity="0.45"><title>0 contributions on Jun 15</title></rect>
@@ -377,8 +377,9 @@
     <rect x="686" y="49" width="9" height="9" rx="1.2" fill="#89212e" fill-opacity="1"><title>1 contribution on Oct 14</title></rect>
     <rect x="689.25" y="65.25" width="2.5" height="2.5" rx="0.5" fill="#c3707b" fill-opacity="0.45"><title>0 contributions on Oct 15</title></rect>
     <rect x="686" y="75" width="9" height="9" rx="1.2" fill="#89212e" fill-opacity="1"><title>1 contribution on Oct 16</title></rect>
+    <rect x="689.25" y="91.25" width="2.5" height="2.5" rx="0.5" fill="#c3707b" fill-opacity="0.45"><title>0 contributions on Oct 17</title></rect>
   </g>
-  <text x="10" y="125" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" fill="#cc7480">783 contributions · last year</text>
+  <text x="10" y="125" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" fill="#cc7480">782 contributions · last year</text>
   <text x="570" y="125" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" fill="#cc7480">less</text>
     <rect x="596" y="117" width="10" height="10" rx="2" fill="#89212e" fill-opacity="1"/>
     <rect x="609" y="117" width="10" height="10" rx="2" fill="#bf2b3f" fill-opacity="1"/>
